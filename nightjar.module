@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains nightjar.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function nightjar_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the nightjar module.
+    case 'help.page.nightjar':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Harnessing the power of AJAX forms') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function nightjar_theme() {
+  return [
+    'nightjar' => [
+      'render element' => 'children',
+    ],
+  ];
+}

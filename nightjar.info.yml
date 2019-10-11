@@ -1,0 +1,5 @@
+name: 'nightjar'
+type: module
+description: 'The nightjar of folklore is revealed through a set of Drupal forms'
+core: 8.x
+package: 'PHP Monks'
