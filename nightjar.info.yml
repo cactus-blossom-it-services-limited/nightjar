@@ -1,5 +1,5 @@
 name: 'nightjar'
 type: module
-description: 'The nightjar of folklore is revealed through a set of Drupal forms'
+description: 'Taking a look at the nightjar, a bird of folklore'
 core: 8.x
 package: 'PHP Monks'

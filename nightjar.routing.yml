@@ -2,7 +2,7 @@ nightjar.one:
   path: '/nightjar/one'
   defaults:
     _form: '\Drupal\nightjar\Form\NightjarOne'
-    _title: 'Nightjar one'
+    _title: 'The nightjar'
   requirements:
     _permission: 'access content'
 
