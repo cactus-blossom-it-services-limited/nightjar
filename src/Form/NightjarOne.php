@@ -24,7 +24,7 @@ class NightjarOne extends FormBase
   public function buildForm(array $form, FormStateInterface $form_state)
   {
     $form['nightjar-name'] = [
-      '#title' => $this->t("A common name for the nightjar is:"),
+      '#title' => $this->t("Nightjars have been commonly named:"),
       '#type' => 'select',
       '#options' => [
         'bugeaters' => 'bugeaters',
