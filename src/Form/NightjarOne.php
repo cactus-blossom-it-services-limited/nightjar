@@ -3,6 +3,7 @@
 namespace Drupal\nightjar\Form;
 
 use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormState;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -23,8 +24,20 @@ class NightjarOne extends FormBase
    */
   public function buildForm(array $form, FormStateInterface $form_state)
   {
+    // This will be replaced by the AJAX
+    $form['surround'] = [
+      '#type' => 'container',
+      '#attributes' => ['id' => 'kernel-surround'],
+    ];
+    // The kernel contains HTML markup that can be replaced on submit.
+    $form['surround']['kernel'] = [
+      '#type' => 'markup',
+      // TODO: create conditional markup based on the selection
+      '#markup' => '<h1>Nightjars have been commonly named:</h1>',
+    ];
+
     $form['nightjar-name'] = [
-      '#title' => $this->t("Nightjars have been commonly named:"),
+      //'#title' => $this->t(""),
       '#type' => 'select',
       '#options' => [
         'bugeaters' => 'bugeaters',
@@ -33,6 +46,18 @@ class NightjarOne extends FormBase
         'swoopers'  =>  'swoopers',
       ]
     ];
+
+    $form['submit'] = [
+      '#type' => 'submit',
+      // AJAX callback is going to call the callback
+      // And will replace the page element with the id kernel-surround
+      '#ajax' => [
+        'callback' => '::nightjaroneCallback',
+        'wrapper' => 'kernel-surround',
+      ],
+      '#value' => $this->t('Answer'),
+    ];
+
     return $form;
   }
   /**
@@ -40,6 +65,18 @@ class NightjarOne extends FormBase
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
-    // TODO: Implement submitForm() method.
+  }
+
+  /**
+   * The callback for the submit
+   * Select the 'kernel' element and change the markup in it
+   * Return it as a renderable array
+   * @return array
+   *   Renderable array (the surround element)
+   */
+  public function nightjaroneCallback(array &$form, FormStateInterface $form_state) {
+    $element = $form['surround'];
+    $element ['kernel']['#markup'] = "You answered ({$form_state->getValue('nightjar-name')}): ";
+    return $element;
   }
 }
