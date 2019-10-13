@@ -36,7 +36,7 @@ class NightjarOne extends FormBase
       '#markup' => '<h1>Nightjars have been commonly named:</h1>',
     ];
 
-    $form['nightjar-name'] = [
+    $form['surround']['nightjar-name'] = [
       //'#title' => $this->t(""),
       '#type' => 'select',
       '#options' => [
@@ -47,7 +47,7 @@ class NightjarOne extends FormBase
       ]
     ];
 
-    $form['submit'] = [
+    $form['surround']['submit'] = [
       '#type' => 'submit',
       // AJAX callback is going to call the callback
       // And will replace the page element with the id kernel-surround
@@ -55,7 +55,7 @@ class NightjarOne extends FormBase
         'callback' => '::nightjaroneCallback',
         'wrapper' => 'kernel-surround',
       ],
-      '#value' => $this->t('Answer'),
+      '#value' => $this->t('Submit'),
     ];
 
     return $form;
@@ -76,7 +76,21 @@ class NightjarOne extends FormBase
    */
   public function nightjaroneCallback(array &$form, FormStateInterface $form_state) {
     $element = $form['surround'];
-    $element ['kernel']['#markup'] = "You answered ({$form_state->getValue('nightjar-name')}): ";
+    $element ['kernel']['#markup'] = "<h2>Nightjars are not called <strong>{$form_state->getValue('nightjar-name')}</strong>.<br><p>Try again.</p></h2>";
+    unset($element ['nightjar-name']);
+    //unset($element ['submit']);
+
+    $element ['submit'] = [
+      '#type' => 'submit',
+      // AJAX callback is going to call the callback
+      // And will replace the page element with the id kernel-surround
+      '#ajax' => [
+        'callback' => '::nightjaroneCallback',
+        'wrapper' => 'kernel-surround',
+      ],
+      '#value' => $this->t('Go Back'),
+    ];
+
     return $element;
   }
 }
